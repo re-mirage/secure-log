@@ -4,19 +4,35 @@ interface Mapping {
     value: string;
 }
 
+interface Config {
+    replacement?: string;
+    return?: boolean;
+}
+
+
 /**
- * Replaces sensitive data in the input string with masked values and logs the result to the console.
- * 
- * @param data - The input string containing sensitive data.
- * @param mappings - An array of mappings specifying the sensitive data values and their corresponding names.
+ * Logs the provided data to the console with secure replacements based on the given mappings.
+ * @param data - The data to be logged.
+ * @param mappings - An array of mappings containing values to be replaced and their corresponding names.
+ * @param config - Optional configuration object.
+ * @returns If `config.return` is `true`, returns the modified data; otherwise, returns `undefined`.
  */
-function secureConsoleLog(data: string, mappings: Mapping[]): void {
+function secureConsoleLog(data: string, mappings: Mapping[], config?: Config): void | string {
+    const defaultConfig: Config = {
+        replacement: "*****",
+        return: false
+    };
+
+    const mergedConfig: Config = { ...defaultConfig, ...config };
     let newData: string = deepClone(data);
     mappings.forEach(mapping => {
         const regex = new RegExp(mapping.value, 'g');
-        newData = newData.replace(regex, `${mapping.name}: *****`);
+        newData = newData.replace(regex, `${mapping.name}: ${mergedConfig.replacement}`);
     });
     console.log(newData);
+    if (mergedConfig.return) {
+        return newData;
+    }
 }
 
 /**
