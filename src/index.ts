@@ -1,33 +1,47 @@
 
+/**
+ * Represents a mapping between a name and a value.
+ */
 interface Mapping {
     name: string;
     value: string;
 }
 
+/**
+ * Configuration options for the secure log.
+ */
 interface Config {
     replacement?: string;
     return?: boolean;
+    displayName?: boolean;
 }
 
 
+
 /**
- * Logs the provided data to the console with secure replacements based on the given mappings.
- * @param data - The data to be logged.
- * @param mappings - An array of mappings containing values to be replaced and their corresponding names.
- * @param config - Optional configuration object.
- * @returns If `config.return` is `true`, returns the modified data; otherwise, returns `undefined`.
+ * Replaces sensitive data in a string and logs the result to the console.
+ * 
+ * @param data - The string containing sensitive data.
+ * @param mappings - An array of mappings specifying the sensitive values to replace.
+ * @param config - An optional configuration object.
+ * @returns If the `return` property in the config is `true`, the modified string is returned. Otherwise, `void` is returned.
  */
-function secureConsoleLog(data: string, mappings: Mapping[], config?: Config): void | string {
+function secureLog(data: string, mappings: Mapping[], config?: Config): void | string {
     const defaultConfig: Config = {
         replacement: "*****",
-        return: false
+        return: false,
+        displayName: false
     };
 
     const mergedConfig: Config = { ...defaultConfig, ...config };
     let newData: string = deepClone(data);
     mappings.forEach(mapping => {
         const regex = new RegExp(mapping.value, 'g');
-        newData = newData.replace(regex, `${mapping.name}: ${mergedConfig.replacement}`);
+        newData = newData.replace(regex, match => {
+            return mergedConfig.displayName ?
+                `(${mapping.name}:${mergedConfig.replacement})` :
+                `${mapping.name}: ${mergedConfig.replacement}`;
+        });
     });
     console.log(newData);
     if (mergedConfig.return) {
@@ -55,4 +69,4 @@ function deepClone<T>(obj: T): T {
     }
 }
 
-export { secureConsoleLog };
+export { secureLog };

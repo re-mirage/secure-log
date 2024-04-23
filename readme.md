@@ -12,36 +12,24 @@ npm install @remirage/secure-log
 
 
 
-## Usage
 
 
-```
-const { secureConsoleLog } = require('secure-log');
 
-const data = "Here is some sensitive data with int_key: 12345 and another_key: 54321";
-const mappings = [
-    {
-        name: "int_key",
-        value: "12345"
-    },
-    // Add more mappings as needed
-];
-
-secureConsoleLog(data, mappings);
-```
-
-This will log the data with the sensitive values replaced by asterisks.
-
+## Options
+The function secureConsoleLog accepts an optional configuration object with the following options:
+- replacement (string, default: "*****"): Specifies the string to replace sensitive values with.
+- return (boolean, default: false): If set to true, the modified data is returned instead of logged to the console.
+- displayName (boolean, default: false): If set to true, the sensitive value will be replaced with the following format: (${mapping.name}:${replacement}).
 
 ## Example
 ```
-const { secureConsoleLog } = require('secure-log');
+import { secureLog } from 'secure-log';
 
-const data = "error login credentials: key: 1234, secret: 00000";
+const data = "error login credentials: key: 123456, secret: 00000";
 const mappings = [
     {
         name: "apiKey",
-        value: "1234"
+        value: "123456"
     },
     {
         name: "secretKey",
@@ -49,8 +37,13 @@ const mappings = [
     }
 ];
 
-secureConsoleLog(data, mappings); 
+// Using custom replacement and returning modified data 
+secureConsoleLog(data, mappings, { replacement: "REDACTED", return: true });  // "error login credentials: key: REDACTED secret: REDACTED"
+
+
+// Using displayName option
+secureConsoleLog(data, mappings, { displayName: true }); // "error login credentials: key: (apiKey:REDACTED) secret: (secretKey:REDACTED)"
+
 ```
-This will log the data with the username and password replaced by asterisks.
 
 ## License
