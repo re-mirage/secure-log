@@ -23,7 +23,7 @@ The function secureConsoleLog accepts an optional configuration object with the 
 
 ## Example
 ```
-import { secureLog } from 'secure-log';
+import { secureLog } from '@remirage/secure-log';
 
 const data = "error login credentials: key: 123456, secret: 00000";
 const mappings = [
