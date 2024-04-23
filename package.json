@@ -1,0 +1,27 @@
+{
+  "name": "secure-log",
+  "version": "1.0.0",
+  "description": "A utility for logging sensitive information securely by replacing specified values with asterisks.",
+  "main": "./dist/secure-log.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/re-mirage/secure-log.git"
+  },
+  "keywords": [
+    "security",
+    "logging",
+    "npm"
+  ],
+  "author": "MOHAMED EL BSSIR",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/re-mirage/secure-log/issues"
+  },
+  "homepage": "https://github.com/re-mirage/secure-log#readme",
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

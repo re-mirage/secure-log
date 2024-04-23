@@ -1,0 +1,15 @@
+# Dependency directories
+/node_modules
+
+# Typescript build directory
+/dist
+
+# Editor directories
+/.vscode
+/.idea
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
