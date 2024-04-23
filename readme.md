@@ -16,7 +16,7 @@ npm install @remirage/secure-log
 
 
 ## Options
-The function secureConsoleLog accepts an optional configuration object with the following options:
+The function secureLog accepts an optional configuration object with the following options:
 - replacement (string, default: "*****"): Specifies the string to replace sensitive values with.
 - return (boolean, default: false): If set to true, the modified data is returned instead of logged to the console.
 - displayName (boolean, default: false): If set to true, the sensitive value will be replaced with the following format: (${mapping.name}:${replacement}).
@@ -38,11 +38,11 @@ const mappings = [
 ];
 
 // Using custom replacement and returning modified data 
-secureConsoleLog(data, mappings, { replacement: "REDACTED", return: true });  // "error login credentials: key: REDACTED secret: REDACTED"
+secureLog(data, mappings, { replacement: "REDACTED", return: true });  // "error login credentials: key: REDACTED secret: REDACTED"
 
 
 // Using displayName option
-secureConsoleLog(data, mappings, { displayName: true }); // "error login credentials: key: (apiKey:REDACTED) secret: (secretKey:REDACTED)"
+secureLog(data, mappings, { displayName: true }); // "error login credentials: key: (apiKey:REDACTED) secret: (secretKey:REDACTED)"
 
 ```
 
