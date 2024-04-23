@@ -2,9 +2,17 @@
   "name": "secure-log",
   "version": "1.0.0",
   "description": "A utility for logging sensitive information securely by replacing specified values with asterisks.",
-  "main": "./dist/secure-log.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "del ./dist/*",
+    "build": "tsc",
+    "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish",
+    "pub2": "tsc && git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish && git push"
   },
   "repository": {
     "type": "git",
