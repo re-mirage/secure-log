@@ -62,6 +62,6 @@
       "resolveJsonModule": true,
       /* Advanced Options */
       "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-      "types": ["node"]
+      "types": ["node", "jest"]
     }
   }

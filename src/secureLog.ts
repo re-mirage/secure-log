@@ -3,7 +3,7 @@ import { Config, Mapping } from "./types";
 class SecureLog {
     private mappings: Mapping[];
     private config: Config;
-    private originalConsoleLog: (message?: any, ...optionalParams: any[]) => void;
+    originalConsoleLog: (message?: any, ...optionalParams: any[]) => void;
 
     constructor(mappings: Mapping[], config?: Config) {
         this.mappings = mappings;
@@ -65,13 +65,22 @@ class SecureLog {
                     `${mergedConfig.placeholder}`;
             });
         });
+        if (newData === JSON.stringify(data)) {
+            this.originalConsoleLog(data);
+            return mergedConfig.shouldReturn ? data : undefined;
+        }
 
         const parsedData = JSON.parse(newData);
         this.originalConsoleLog(parsedData);
-        if (mergedConfig.shouldReturn) {
-            return parsedData;
-        }
+        return mergedConfig.shouldReturn ? parsedData : undefined;
     }
+    getOriginalConsoleLog(): (message?: any, ...optionalParams: any[]) => void {
+        return this.originalConsoleLog;
+    }
+    restoreConsoleLog(): void {
+        console.log = this.originalConsoleLog;
+    }
+
 }
 
-export default SecureLog
+export default SecureLog;
