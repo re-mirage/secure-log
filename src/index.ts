@@ -1,2 +1,2 @@
-export { default as secureLog } from './secureLog';
+export { default as SecureLog } from './secureLog';
 export { Mapping, Config } from './types';
