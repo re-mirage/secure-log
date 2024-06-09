@@ -9,21 +9,17 @@ You can install `SecureLog` using npm, yarn, or bun.
 ### Using npm
 ```
 npm install @remirage/secure-log
-
 ```
 
 
 ### Using yarn
 ```
 yarn add @remirage/secure-log
-
-
 ```
 
 ### Using bun
 ```
 bun add @remirage/secure-log
-
 ```
 
 ## Usage
